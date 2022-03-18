@@ -306,6 +306,7 @@ const typeDefs = gql`
     image: String!
     price: Float!
     onSale: Boolean!
+    category: Category
   }
 
   type Category {
@@ -323,7 +324,7 @@ const resolvers = {
       const { id } = args;
       return products.find(product => product.id === id);
     },
-    products: (parent, args, context) => categories,
+    products: (parent, args, context) => products,
     category: (parent, args, context) => {
       const { id } = args;
       return categories.find((category) => category.id === id);
@@ -333,6 +334,12 @@ const resolvers = {
     products: (parent, args, context) => {
       const { id } = parent;
       return products.filter((product) => product.categoryId === id);
+    }
+  },
+  Product: {
+    category: (parent, args, context) => {
+      const categoryId = parent.categoryId;
+      return categories.find(category => category.id = categoryId);
     }
   }
 }
