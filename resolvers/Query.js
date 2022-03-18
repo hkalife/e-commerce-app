@@ -1,5 +1,3 @@
-const { products, categories } = require('../db')
-
 exports.Query = {
   products: (parent, args, { products }) => products,
   product: (parent, { id }, { products }) => {
