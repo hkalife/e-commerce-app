@@ -80,12 +80,29 @@ exports.Mutation = {
     db.reviews = db.reviews.filter(review => review.id !== id);
     return true;
   },
+  updateProduct: (parent, { id, input }, { db }) => {
+    const index = db.products.findIndex(product => product.id === id);
+    db.products[index] = {
+      ...db.products[index],
+      ...input
+    };
+    return db.products[index];
+  },
   updateCategory: (parent, { id, input }, { db }) => {
     const index = db.categories.findIndex(category => category.id === id);
+    if(index === -1) return null;
     db.categories[index] = {
       ...db.categories[index],
       ...input
     };
-    return db.categories.index;
-  }
+    return db.categories[index];
+  },
+  updateReview: (parent, { id, input }, { db }) => {
+    const index = db.reviews.findIndex(review => review.id === id);
+    db.reviews[index] = {
+      ...db.reviews[index],
+      ...input
+    };
+    return db.reviews[index];
+  },
 }
